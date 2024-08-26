@@ -8,6 +8,7 @@ This repository contains several utility modules for use with Elixir, particular
 2. [Schema](#schema)
 3. [Router](#router)
 4. [Responses](#responses)
+5. [Namespace](#namespace)
 ---
 
 ## Jsonb
@@ -112,6 +113,44 @@ parse_errors(%Ecto.Changeset{errors: [name: {"can't be blank", []}]})
 parse_errors("An error occurred")
 # => %{error: "An error occurred"}
 
+```
+
+## Namespace
+Adds conditional namespacing to plug's router
+
+#### Example
+
+```elixir
+defmodule MyApp.Router do
+  use Plug.Router
+  import Namespace
+
+  plug :match
+  plug :dispatch
+
+  namespace "/user" do
+    plug Plug.Logger
+    plug :auth_required
+
+    get "/" do
+      send_resp(conn, 200, ~s({"message": "Welcome to Authenticated User"}))
+    end
+  end
+
+  match _ do
+    send_resp(conn, 404, "Oops!")
+  end
+
+  defp auth_required(conn) do
+    if get_req_header(conn, "authorization") == ["Bearer valid_token"] do
+      conn
+    else
+      conn
+      |> Plug.Conn.send_resp(401, "Unauthorized")
+      |> halt()
+    end
+  end
+end
 ```
 
 ## License
