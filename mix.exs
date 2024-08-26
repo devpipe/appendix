@@ -10,6 +10,7 @@ defmodule Appendix.MixProject do
       app: :appendix,
       version: @version,
       description: @description,
+      package: package(),
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps()
