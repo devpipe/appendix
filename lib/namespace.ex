@@ -70,7 +70,16 @@ defmodule Namespace do
   """
   defmacro namespace(path, do: block) do
     quote do
-      scope(unquote(path), do: unquote(block))
+      path = unquote(path)
+
+      plug = fn conn, opts ->
+        # Prepend the namespace path to the request path
+        %{conn | request_path: path <> conn.request_path}
+        |> Plug.Builder.run(opts)
+      end
+
+      # Dynamically define the plugs and routes within the namespace
+      unquote(block)
     end
   end
 
@@ -94,18 +103,16 @@ defmodule Namespace do
   """
   defmacro scope(path, do: block) do
     quote do
-      defp build_path(conn, path) do
-        %{conn | request_path: conn.request_path <> unquote(path)}
+      path = unquote(path)
+
+      plug = fn conn, opts ->
+        # Prepend the scope path to the request path
+        %{conn | request_path: path <> conn.request_path}
+        |> Plug.Builder.run(opts)
       end
 
-      plug = fn conn, _opts ->
-        conn = build_path(conn, unquote(path))
-        unquote(block)
-        conn
-      end
-
-      plug = Plug.Builder.init_plug(plug)
-      plug
+      # Dynamically define the plugs and routes within the scope
+      unquote(block)
     end
   end
 end

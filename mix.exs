@@ -1,7 +1,7 @@
 defmodule Appendix.MixProject do
   use Mix.Project
 
-  @version "0.0.2"
+  @version "0.0.3"
   @description "Handful of helpers for plug applications. No frameworks."
   @repo "https://github.com/devpipe/appendix"
 
