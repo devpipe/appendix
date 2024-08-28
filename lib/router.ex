@@ -35,7 +35,7 @@ defmodule Appendix.Router do
       import Plug.Conn
 
       use Plug.Router
-      use Responses
+      use Appendix.Response
 
       import unquote(__MODULE__)
 
