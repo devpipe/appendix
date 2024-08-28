@@ -1,4 +1,4 @@
-defmodule Router do
+defmodule Appendix.Router do
   @moduledoc """
   A module for defining common Plug router configurations.
 
@@ -39,10 +39,11 @@ defmodule Router do
 
       import unquote(__MODULE__)
 
-      plug Plug.Parsers,
+      plug(Plug.Parsers,
         parsers: [:urlencoded, :multipart, :json],
         pass: ["*/*"],
         json_decoder: Jason
+      )
     end
   end
 end

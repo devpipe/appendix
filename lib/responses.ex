@@ -1,4 +1,4 @@
-defmodule Responses do
+defmodule Appendix.Response do
   @moduledoc """
   A module providing wrappers for common HTTP responses in Plug applications.
 
@@ -183,7 +183,10 @@ defmodule Responses do
 
     conn
     |> Plug.Conn.merge_resp_headers(resp_headers)
-    |> Plug.Conn.put_resp_header("content-disposition", "attachment; filename=#{Path.basename(path)}")
+    |> Plug.Conn.put_resp_header(
+      "content-disposition",
+      "attachment; filename=#{Path.basename(path)}"
+    )
     |> Plug.Conn.put_resp_content_type(:mimerl.filename(path))
     |> Plug.Conn.put_resp_header("content-length", "#{stat.size}")
     |> Plug.Conn.put_resp_header("content-transfer-encoding", "binary")

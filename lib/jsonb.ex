@@ -1,4 +1,4 @@
-defmodule Jsonb do
+defmodule Appendix.Jsonb do
   @moduledoc """
   A module for building Ecto queries with JSONB columns.
 

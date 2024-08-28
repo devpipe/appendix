@@ -1,7 +1,7 @@
 defmodule Appendix.MixProject do
   use Mix.Project
 
-  @version "0.0.3"
+  @version "0.0.4"
   @description "Handful of helpers for plug applications. No frameworks."
   @repo "https://github.com/devpipe/appendix"
 
@@ -40,7 +40,7 @@ defmodule Appendix.MixProject do
       {:plug_cowboy, "~> 2.7.1"},
       {:ecto_sql, "~> 3.11.3"},
       {:mimerl, "~> 1.3.0"},
-      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 end

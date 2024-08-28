@@ -1,4 +1,4 @@
-defmodule Schema do
+defmodule Appendix.Schema do
   @moduledoc """
   A module for defining common Ecto schema configurations.
 
